@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Dashboard | School Management System</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="brand">🏫 Student Portal</div>
+  <div class="nav-right">
+    <span class="user-badge" id="userBadge">Student</span>
+    <button class="btn danger small" onclick="logout()">Log Out</button>
+  </div>
+</nav>
+
+<div class="dashboard">
+  <h1>Welcome, <span id="welcomeName"></span> 👋</h1>
+  <p class="page-subtitle">Here are your registered details.</p>
+
+  <div class="section-card">
+    <h2>My Profile</h2>
+    <div id="profileArea" class="loading">Loading profile...</div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+  const user = requireAuth("student");
+
+  if (user) {
+    document.getElementById("userBadge").textContent = `${user.name} (Student)`;
+    document.getElementById("welcomeName").textContent = user.name.split(" ")[0];
+    loadProfile();
+  }
+
+  async function loadProfile() {
+    const area = document.getElementById("profileArea");
+    try {
+      const p = await apiRequest("/auth/me", { auth: true });
+      area.innerHTML = `
+        <div class="profile-grid">
+          <div class="profile-field"><div class="label">Full Name</div><div class="value">${p.name}</div></div>
+          <div class="profile-field"><div class="label">Email</div><div class="value">${p.email}</div></div>
+          <div class="profile-field"><div class="label">Phone</div><div class="value">${p.phone || "-"}</div></div>
+          <div class="profile-field"><div class="label">Class / Grade</div><div class="value">${p.class_name || "-"}</div></div>
+          <div class="profile-field"><div class="label">Roll Number</div><div class="value">${p.roll_number || "-"}</div></div>
+          <div class="profile-field"><div class="label">Joined</div><div class="value">${new Date(p.created_at).toLocaleDateString()}</div></div>
+        </div>`;
+    } catch (err) {
+      area.innerHTML = `<div class="alert error">${err.message}</div>`;
+    }
+  }
+</script>
+
+</body>
+</html>
