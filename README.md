@@ -1,6 +1,6 @@
-# Student Management System
+# School Management System
 
-A full-stack Student Management System built with **React.js** (Tailwind CSS), **Spring Boot** (Java), and **MySQL**. It supports role-based access for Admin, Teacher, and Student users, with JWT authentication, dashboards, attendance and marks management, reporting, and notifications.
+A Full-Stack School Management System built with **React.js** (Tailwind CSS), **Spring Boot** (Java), and **MySQL**. It supports role-based access for Admin, Teacher, and Student users, with JWT authentication, dashboards, attendance and marks management, reporting, and notifications.
 
 ---
 
@@ -18,7 +18,7 @@ A full-stack Student Management System built with **React.js** (Tailwind CSS), *
 ## 2. Project Structure
 
 ```
-student-management-system/
+school-management-system/
 ├── backend/                     # Spring Boot application
 │   ├── pom.xml
 │   └── src/main/
